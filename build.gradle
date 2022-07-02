@@ -1,0 +1,70 @@
+plugins {
+  id 'org.springframework.boot' version '2.7.1'
+  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+  id 'java'
+  id 'jacoco'
+  id 'checkstyle'
+}
+
+group = 'ai.faire.challenge'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+  mavenCentral()
+}
+
+ext.versions = [
+  checkstyleVersion: "8.39"
+]
+
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.projectlombok:lombok'
+  annotationProcessor 'org.projectlombok:lombok'
+  // TEST
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+  jacoco {
+    destinationFile = file("$buildDir/jacoco/${name}.exec")
+  }
+}
+
+// JACOCO
+jacoco {
+  toolVersion = '0.8.7'
+}
+tasks.withType(Test) {
+  finalizedBy jacocoTestReport
+}
+
+ext {
+  jacocoMergedReport = file("$buildDir/jacoco/mergeTest.exec")
+}
+
+task jacocoMergeTestReport(type: JacocoMerge) {
+  executionData tasks.withType(Test)
+  destinationFile = jacocoMergedReport
+}
+
+jacocoTestReport {
+  dependsOn jacocoMergeTestReport
+  executionData jacocoMergedReport
+  reports {
+    xml.enabled true
+    csv.enabled false
+    html.enabled true
+    html.destination file("${buildDir}/reports/jacocoHtml")
+  }
+}
+
+// CHECKSTYLE
+checkstyle {
+  toolVersion = "${versions.checkstyleVersion}"
+}
+checkstyleMain.source = "src/main/java"
+checkstyleTest.source = "src/test/java"
