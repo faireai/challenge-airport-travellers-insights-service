@@ -1,0 +1,37 @@
+name: Lint Code Base
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+    paths:
+      - '**/openapi/*.yaml'
+      - '.github/workflows/linter.yml'
+  pull_request:
+    paths:
+      - '**/openapi/*.yaml'
+      - '.github/workflows/linter.yml'
+
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
+      - name: Get default branch
+        id: get-default-branch
+        run: |
+          echo "::set-output name=default-branch::$(gh api repos/:owner/:repo --jq '.default_branch')"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Lint Code Base
+        uses: github/super-linter/slim@v4
+        env:
+          DEFAULT_BRANCH: ${{ steps.get-default-branch.outputs.default-branch }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_OPENAPI: true
