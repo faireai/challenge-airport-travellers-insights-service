@@ -26,13 +26,24 @@ with the dates of flight departures from both airports.
 
 ### Cancel a trip
 
-Cancel a registered flight.
+Cancel a registered trip.
 
 ### Get airport insights
 
-Given an airport and a date, return the number of traveller that transit on the
-airport in that date, the number of travellers that have a trip for leisure, the
-number of travellers that have a trip for business.
+Given an airport and a date, return the number of traveller that transit through
+the airport in the date, the number of travellers that are travelling for
+leisure and for business and the probabilities that the estimations are correct.
+
+As an example, let assume that we have registered 2 trips:
+
+1. **Passenger 1**, travelling for leisure, from LIN to AMS with departure date
+   2022-07-14 and return date 2022-07-18, and
+2. **Passenger 2**, travelling for business, from BRU to LIN with departure date
+   2022-07-12 and return date 2022-07-14.
+
+Requesting the insights of Linate (LIN) airport on 2022-07-14 must return that
+there are 2 passengers in the airport: one is travelling for leisure an one is
+travelling for business.
 
 ## Assignment
 
