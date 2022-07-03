@@ -121,5 +121,5 @@ The service can be launched running the following command:
 
 ## Notes
 
-- If you are using GitHub as CVS you can take advantage of GitHub Actions.
+- If you are using GitHub you can take advantage of GitHub Actions.
   The project contains configured workflows in `.github` directory. 
