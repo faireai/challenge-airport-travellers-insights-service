@@ -10,13 +10,19 @@ servers:
 
 tags:
   - name: Travel
-    description: Operations on travels
+    description: Operations to manage travels
+  - name: Airport
+    description: Operation to retrieve information on airports
 
 paths:
   /trips:
     post:
       summary: Register a trip
-      description: Register a new trip
+      description: |
+        Register a new round trip travel from an origin to a destiantion with the departure and
+        return dates.
+
+        Origin and destination are represented by their IATA codes and dates must be in the future.
       operationId: registerTrip
       tags: [ Travel ]
       requestBody:
@@ -33,6 +39,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegisterTripResponse'
+  /airport-insights:
+    post:
+      summary: Get airport insights
+      description: '*TODO Fill this with description*'
+      operationId: getAirportInsights
+      tags: [ Airport ]
+      responses:
+        '200':
+          description: Airport insights
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAirportInsightsResponse'
 
 components:
   schemas:
@@ -40,9 +59,9 @@ components:
       type: object
       properties:
         originAirportCode:
-          $ref: '#/components/schemas/AirportCode'
+          $ref: '#/components/schemas/AirportIataCode'
         destinationAirportCode:
-          $ref: '#/components/schemas/AirportCode'
+          $ref: '#/components/schemas/AirportIataCode'
         departureDate:
           description: Departure date from original airport
           type: string
@@ -60,9 +79,9 @@ components:
       type: object
       properties:
         originAirportCode:
-          $ref: '#/components/schemas/AirportCode'
+          $ref: '#/components/schemas/AirportIataCode'
         destinationAirportCode:
-          $ref: '#/components/schemas/AirportCode'
+          $ref: '#/components/schemas/AirportIataCode'
         departureDate:
           description: Departure date from original airport
           type: string
@@ -76,7 +95,48 @@ components:
         - destinationAirportCode
         - departureDate
         - returnDate
-    AirportCode:
+    GetAirportInsightsResponse:
+      type: object
+      properties:
+        airportCode:
+          $ref: '#/components/schemas/AirportIataCode'
+        date:
+          description: Date the insights refer to
+          type: string
+          format: date
+        totalTravellers:
+          description: Number of travellers in the airport
+          type: integer
+          format: int32
+          example: 4
+        leisurePurposeTravellers:
+          description: Number of travellers in the airport that are travelling for leisure
+          type: integer
+          format: int32
+          example: 3
+        leisurePurposeProbability:
+          description: |
+            Probability that the travellers are travelling for leisure.
+            It can be omitted if `leisurePurposeTravellers` is zero.
+          type: string
+          example: '0.5612'
+        businessPurposeTravellers:
+          description: Number of travellers in the airport that are travelling for business
+          type: integer
+          format: int32
+          example: 1
+        businessPurposeProbability:
+          description: |
+            Probability that the travellers are travelling for business.
+            It can be omitted if `businessPurposeTravellers` is zero.
+          type: string
+          example: '0.4502'
+      required:
+        - airportCode
+        - date
+        - leisurePurposeTravellers
+        - businessPurposeTravellers
+    AirportIataCode:
       description: IATA code
       type: string
       example: "LIN"
