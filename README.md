@@ -26,7 +26,7 @@ with the dates of flight departures from both airports.
 
 ### Cancel a trip
 
-Cancel a registered trips
+Cancel a registered trip.
 
 ### Get airport insights
 
