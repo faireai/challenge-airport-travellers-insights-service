@@ -19,7 +19,7 @@ paths:
     post:
       summary: Register a trip
       description: |
-        Register a new round trip travel from an origin to a destiantion with the departure and
+        Register a new round trip travel from an origin to a destination with the departure and
         return dates.
 
         Origin and destination are represented by their IATA codes and dates must be in the future.
