@@ -4,11 +4,31 @@ plugins {
   id 'java'
   id 'jacoco'
   id 'checkstyle'
+  id 'idea'
 }
 
 group = 'ai.faire.challenge'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
+
+configurations {
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+  integrationTestImplementation.extendsFrom testImplementation
+  integrationTestRuntimeOnly.extendsFrom runtimeOnly
+  contractTestImplementation.extendsFrom testImplementation
+  contractTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+sourceSets {
+  integrationTest {
+    compileClasspath += sourceSets.main.output
+    compileClasspath += sourceSets.test.output
+    runtimeClasspath += sourceSets.main.output
+    runtimeClasspath += sourceSets.test.output
+  }
+}
 
 repositories {
   mavenCentral()
@@ -22,6 +42,7 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.projectlombok:lombok'
   annotationProcessor 'org.projectlombok:lombok'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
   // TEST
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testAnnotationProcessor 'org.projectlombok:lombok'
@@ -31,6 +52,21 @@ tasks.named('test') {
   useJUnitPlatform()
   jacoco {
     destinationFile = file("$buildDir/jacoco/${name}.exec")
+  }
+}
+
+task integrationTest(type: Test, description: 'Runs integration tests.', group: LifecycleBasePlugin.VERIFICATION_GROUP) {
+  useJUnitPlatform()
+  testClassesDirs = sourceSets.integrationTest.output.classesDirs
+  classpath = sourceSets.integrationTest.runtimeClasspath
+  shouldRunAfter test
+  jacoco {
+    destinationFile = file("$buildDir/jacoco/integrationTest.exec")
+  }
+  testLogging {
+    events "failed"
+    exceptionFormat "full"
+    showStandardStreams = true
   }
 }
 
@@ -68,3 +104,10 @@ checkstyle {
 }
 checkstyleMain.source = "src/main/java"
 checkstyleTest.source = "src/test/java"
+checkstyleIntegrationTest.source = "src/integrationTest/java"
+
+idea {
+  module {
+    testSourceDirs += project.sourceSets.integrationTest.java.srcDirs
+  }
+}

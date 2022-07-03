@@ -1,0 +1,82 @@
+openapi: 3.0.3
+
+info:
+  title: Airport travellers insights service
+  description: Service providing insights on flights and airports
+  version: '1.0'
+
+servers:
+  - url: ''
+
+tags:
+  - name: Travel
+    description: Operations on travels
+
+paths:
+  /trips:
+    post:
+      summary: Register a trip
+      description: Register a new trip
+      operationId: registerTrip
+      tags: [ Travel ]
+      requestBody:
+        description: Trip information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterTripRequest'
+      responses:
+        '201':
+          description: Trip registration registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterTripResponse'
+
+components:
+  schemas:
+    RegisterTripRequest:
+      type: object
+      properties:
+        originAirportCode:
+          $ref: '#/components/schemas/AirportCode'
+        destinationAirportCode:
+          $ref: '#/components/schemas/AirportCode'
+        departureDate:
+          description: Departure date from original airport
+          type: string
+          format: date
+        returnDate:
+          description: Return date from the destination airport
+          type: string
+          format: date
+      required:
+        - originAirportCode
+        - destinationAirportCode
+        - departureDate
+        - returnDate
+    RegisterTripResponse:
+      type: object
+      properties:
+        originAirportCode:
+          $ref: '#/components/schemas/AirportCode'
+        destinationAirportCode:
+          $ref: '#/components/schemas/AirportCode'
+        departureDate:
+          description: Departure date from original airport
+          type: string
+          format: date
+        returnDate:
+          description: Return date from the destination airport
+          type: string
+          format: date
+      required:
+        - originAirportCode
+        - destinationAirportCode
+        - departureDate
+        - returnDate
+    AirportCode:
+      description: IATA code
+      type: string
+      example: "LIN"
