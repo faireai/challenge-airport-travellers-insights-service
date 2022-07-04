@@ -5,6 +5,7 @@ plugins {
   id 'jacoco'
   id 'checkstyle'
   id 'idea'
+  id 'com.adarshr.test-logger' version '3.2.0'
 }
 
 group = 'ai.faire.challenge'
@@ -35,11 +36,13 @@ repositories {
 }
 
 ext.versions = [
-  checkstyleVersion: "8.39"
+  checkstyleVersion: "8.39",
+  vavrVersion      : "0.10.4"
 ]
 
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation "io.vavr:vavr:${versions.vavrVersion}"
   implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
   // TEST
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
