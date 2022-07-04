@@ -119,6 +119,14 @@ The service can be launched running the following command:
 
 *TODO Explain how to use the service and provide examples.*
 
+The service exposes the endpoint `/api-docs` to get the OpenAPI documentation
+of the service API.
+On localhost, you can get it with `curl` with the following command.
+
+```shell
+% curl localhost:8080/api-docs
+```
+
 ## Notes
 
 - If you are using GitHub you can take advantage of GitHub Actions.
