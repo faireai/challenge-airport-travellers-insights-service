@@ -2,27 +2,27 @@
 
 *Sample Spring Boot/Java service that gives insights on airport travellers.*
 
-*Airport travellers insights service* is a REST service that provides insights
-on flights and airports.
+*Airport travellers insights service* is a REST service that gives insights on
+flights and airports.
 
 In this code challenge, we want to implement a feature that gives **insights on
 the purpose of trips** travellers do.
-We can take advance of [Amadeus APIs](https://developers.amadeus.com/) and use
+We can take advantage of [Amadeus APIs](https://developers.amadeus.com/) and use
 [Trip Purpose Prediction](https://developers.amadeus.com/self-service/category/trip/api-doc/trip-purpose-prediction/api-reference)
 to predict if the purpose of a round trip travel is for leisure or for business
 with a certain probability.
 With such information the service has to provide an operation that, given an
-airport and a date, returns the number of passengers that are travelling in that
-date for leisure and for business.
+airport and a date, returns the number of passengers that are travelling for
+leisure and for business in that date.
 
 ## Service capabilities
 
-The service has to provide the following operation. 
+The service has to provide the following operations.
 
 ### Register a trip
 
-Register a round trip travel from a departure airport to a destination airport
-with the dates of flight departures from both airports. 
+Register a round trip travel from an origin airport to a destination airport
+with the departure and return dates of the flights.
 
 ### Cancel a trip
 
@@ -31,10 +31,10 @@ Cancel a registered trip.
 ### Get airport insights
 
 Given an airport and a date, return the number of traveller that transit through
-the airport in the date, the number of travellers that are travelling for
+the airport in that date, the number of travellers that are travelling for
 leisure and for business and the probabilities that the estimations are correct.
 
-As an example, let assume that we have registered 2 trips:
+As an example, let assume that we have registered two trips:
 
 1. **Passenger 1**, travelling for leisure, from LIN to AMS with departure date
    2022-07-14 and return date 2022-07-18, and
@@ -42,51 +42,49 @@ As an example, let assume that we have registered 2 trips:
    2022-07-12 and return date 2022-07-14.
 
 Requesting the insights of Linate (LIN) airport on 2022-07-14 must return that
-there are 2 passengers in the airport: one is travelling for leisure an one is
+there are 2 passengers in the airport: one is travelling for leisure and one is
 travelling for business.
 
 ## Assignment
 
 The following activities must be accomplished in the code challenge to fully
 implement the feature described above.
-You can start from the sources that this project already contains to speed up
-the implementation.
+You can clone this repository and start working from the sources provided by
+this project.
+You can change any file of this project: the existing code consists of a service
+scaffold with the purpose of simplifying the development of the service.
 
-**Note.** During the implementation you can change any file of this project.
-What we provide is a service scaffold with the purpose of the simplifying the
-development of the service.
-If something can be enhanced, any valuable improvement will be appreciated.
-If something has to be changed because it is wrong and/or it does not fit the
-solution you are implementing, then change it and document your modifications if
-that may help in understanding your decision.
+- If something can be enhanced, any valuable improvement will be appreciated.
+- If something has to be changed because it is wrong and/or it does not fit the
+  solution you are implementing, then change it and document your modifications
+  if you think the change is not clear to understand.
+
+The activities to be accomplished are listed herein.
 
 - [ ] Complete the documentation of the API updating the OpenAPI we provide by
       designing the missing parts.
 - [ ] Implement the service operations as described in section
       [Service capabilities](#service-capabilities).
-- [ ] Implement tests to verify that correctness of the service functionalities.
+- [ ] Implement tests to verify that correctness of the service functionalities
+      and prevent regressions on further changes.
 - [ ] Add instructions to build a [Docker](https://www.docker.com/) container
       image containing the service and explain how to launch it.
-      Document it in section [Run with Docker](#run-with-docker) within this
-      page.
-- [ ] Fill the *TODOs* in this README file.
+      Document it in section [Run with Docker](#run-with-docker) in this page.
+- [ ] Fill the *:pencil2: TODOs* in this README file.
 - [ ] Upload the code to a public repository or a private one after granting the
       access to [gilberto@faire.ai](mailto:gilberto@faire.ai) (Head of
-      Technology @ *faireai*) that may request the access for other colleagues
-      for the review.
+      Technology @ *faireai*); we may request to grant access to other
+      colleagues that will review the code.
 
 ### What we evaluate
 
-During the evaluation of your implementation we pay attention to the following
+During the review of your implementation we pay attention to the following
 points.
 
 - Correctness of the business logic.
 - Quality of the code with a focus on its readability.
 - Architecture of the service.
 - Proper tests code coverage and use of tests.
-
-TODO Implementation must be pushed to a public repository or to a private one
-that must guarantee the access to some specific developers at *faireai*.
 
 ## Build
 
@@ -101,7 +99,7 @@ To compile and verify the project run:
 
 ## Configuration
 
-*TODO Document how to configure the service.*
+*:pencil2: TODO Document how to configure the service.*
 
 ## Run the service
 
@@ -113,11 +111,11 @@ The service can be launched running the following command:
 
 ### Run with Docker
 
-*TODO Document how to run the service using Docker.*
+*:pencil2: TODO Document how to run the service using Docker.*
 
 ## Usage
 
-*TODO Explain how to use the service and provide examples.*
+*:pencil2: TODO Explain how to use the service and provide examples.*
 
 The service exposes the endpoint `/api-docs` to get the OpenAPI documentation
 of the service API.
