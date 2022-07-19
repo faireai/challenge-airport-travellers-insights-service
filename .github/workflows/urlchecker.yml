@@ -16,5 +16,4 @@ jobs:
         uses: urlstechie/urlchecker-action@0.0.27
         with:
           file_types: .md
-          print_all: false
           exclude_patterns: localhost
