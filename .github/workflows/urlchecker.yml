@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '**.md'
+      - '.github/workflows/urlchecker.yml'
 
 jobs:
   urlchecker:
