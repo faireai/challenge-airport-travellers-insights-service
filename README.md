@@ -45,6 +45,27 @@ Requesting the insights of Linate (LIN) airport on 2022-07-14 must return that
 there are 2 passengers in the airport: one is travelling for leisure and one is
 travelling for business.
 
+### Get airport travellers
+
+Given an airport and a range of dates, return the number of travellers that
+transit through the airport, the number of travellers that are travelling for
+leisure and for business and their trends with reference to the previous day for
+each day within the specified range.
+
+As an example, if the requester asks for the travellers in Linate (LIN) airport
+between 2022-07-10 and 2022-07-14 the response might contain the following data.
+
+| Date       | Travellers | Trend | Business trav. | Business trav. trend | Leisure trav. | Leisure trav. trend |
+|------------|------------|-------|----------------|----------------------|---------------|---------------------|
+| 2022-07-10 | 200        | 0     | 100            | 0                    | 100           | 0                   |
+| 2022-07-11 | 230        | +30   | 98             | -2                   | 132           | +32                 |
+| 2022-07-12 | 220        | -10   | 95             | -3                   | 125           | -7                  |
+| 2022-07-13 | 170        | -50   | 100            | +5                   | 70            | -55                 |
+| 2022-07-14 | 200        | +30   | 120            | +20                  | 80            | +10                 |
+
+This operation can be used for statistical analysis of traveller flow in
+airports.
+
 ## Assignment
 
 The following activities must be accomplished in the code challenge to fully
